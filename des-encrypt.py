@@ -1,3 +1,36 @@
+#permutation function
+def permutation(table, binary):
+    permutation_result = []
+    for i in table:
+        permutation_result.append(binary[i - 1])
+    return b''.join(permutation_result)
+
+#left shifting function
+def left_shift(table, binary_list):
+    x = 0
+    for i in table:
+        binary_list.append(binary_list[x][i:] + binary_list[x][0:i])
+        x = x + 1
+    return binary_list
+
+#compute xor from 2 binary number
+def xor(num1, num2):
+    result = ""
+    for i in range(0,len(num1)):
+        if bool(int(num1[i])) != bool(int(num2[i])):
+            result += '1'
+        else:
+            result += '0'
+    return result
+
+#s-box operation
+def check_s_box(key1, key2, table, num):
+    num1 = num[0:1] + num[-1:]
+    num2 = num[1:5]
+    index1 = key1.index(num1)
+    index2 = key2.index(num2)
+    return table[index1][index2]
+
 #encrypting text with DES algorithm
 def encrypt(plaintext, key):
     #main variable
@@ -132,3 +165,42 @@ def encrypt(plaintext, key):
     rl = right[16]+left[16]
     chiper_text = permutation(ip_inverse_table, rl)
     return chiper_text
+
+#get input from user
+print "Enter Text to be Encrypted"
+plaintext = raw_input()
+key = ''
+#looping until user input the right key format
+while len(key) != 8:
+    print "Enter Key (must be exactly 8 character)"
+    key = raw_input()
+
+#convert plaintext and key into binary
+plaintext_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(plaintext))
+key_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(key))
+
+text_length = len(plaintext)
+chiper = ''
+iv = '0000000000000000000000000000000000000000000000000000000000000000'
+i = 0
+
+#start chiper block chaining encryption with DES
+while text_length > 0:
+    if(text_length < 8):
+        p_text = plaintext_bin[i * 64:i*64 + 8*text_length]
+        for i in range(0, 8 - text_length):
+            p_text = '00000000' + p_text
+    else:
+        p_text = plaintext_bin[i * 64:i * 64 + 64]
+    p = xor(iv, p_text)
+    chiper = encrypt(p, key_bin)
+    iv = chiper
+    i+=1
+    text_length -= 8
+
+chiper_bin = []
+chiper_text = ''
+for i in range(0, 8):
+    chiper_bin.append(int(chiper[i*8:i*8+8], 2))
+    chiper_text += chr(chiper_bin[i])
+print "\n\nResult:\n"+chiper_text
