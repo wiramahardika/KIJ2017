@@ -1,3 +1,7 @@
+def bin_to_hex(bstr):
+    hstr = '%0*X' % ((len(bstr) + 3) // 4, int(bstr, 2))
+    return hstr
+
 #permutation function
 def permutation(table, binary):
     permutation_result = []
@@ -34,6 +38,8 @@ def check_s_box(key1, key2, table, num):
 #encrypting text with DES algorithm
 def encrypt(plaintext, key):
     #main variable
+    PLAINTEXT = plaintext
+    KEY = key
 
     #table for permutation
     ip_table = [58, 50, 42, 34, 26, 18, 10, 2, 60, 52, 44, 36, 28, 20, 12, 4, 62, 54, 46, 38, 30, 22, 14, 6, 64, 56, 48, 40, 32, 24, 16, 8, 57, 49, 41, 33, 25, 17, 9, 1, 59, 51, 43, 35, 27, 19, 11, 3, 61, 53, 45, 37, 29, 21, 13, 5, 63, 55, 47, 39, 31, 23, 15, 7]
@@ -45,11 +51,8 @@ def encrypt(plaintext, key):
     ip_inverse_table = [40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47, 15, 55, 23, 63, 31, 38, 6, 46, 14, 54, 22, 62, 30, 37, 5, 45, 13, 53, 21, 61, 29, 36, 4, 44, 12, 52, 20, 60, 28, 35, 3, 43, 11, 51, 19, 59, 27, 34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25]
 
     #s-box table
-    #vertical
     s_box_key_1 = ['00', '01', '10', '11']
-    #horizontal
     s_box_key_2 = ['0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1101', '1110', '1111']
-    #list of list
     s1_table = []
     s1_table.append([14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7])
     s1_table.append([0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8])
@@ -131,9 +134,6 @@ def encrypt(plaintext, key):
     for i in range(0, 17):
         cd.append(c[i] + d[i])
         k.append(permutation(pc_2_table, cd[i]))
-        #print 'c:'+c[i]
-        #print 'd:'+d[i]
-    #print cd
 
     #do 16 stage xor operation on expanded right-splitted plain text with variable K
     er = []
@@ -166,41 +166,75 @@ def encrypt(plaintext, key):
     chiper_text = permutation(ip_inverse_table, rl)
     return chiper_text
 
-#get input from user
-print "Enter Text to be Encrypted"
-plaintext = raw_input()
-key = ''
-#looping until user input the right key format
-while len(key) != 8:
-    print "Enter Key (must be exactly 8 character)"
-    key = raw_input()
+#start ofb encryption
+def ofb_encrypt():
+    # get plain text and key from user
+    print "\n\nEnter Text to be Encrypted"
+    plaintext = raw_input()
+    key = ''
+    # looping until user input the right key format
+    while len(key) != 8:
+        print "Enter Key (must be exactly 8 character)"
+        key = raw_input()
 
-#convert plaintext and key into binary
-plaintext_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(plaintext))
-key_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(key))
+    # convert plaintext and key into binary
+    plaintext_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(plaintext))
+    key_bin = ''.join(format(x, 'b').zfill(8) for x in bytearray(key))
 
-text_length = len(plaintext)
-chiper = ''
-iv = '0000000000000000000000000000000000000000000000000000000000000000'
-i = 0
+    # initialize plain text length for the stream looping
+    text_length = len(plaintext)
 
-#start chiper block chaining encryption with DES
-while text_length > 0:
-    if(text_length < 8):
-        p_text = plaintext_bin[i * 64:i*64 + 8*text_length]
-        for i in range(0, 8 - text_length):
-            p_text = '00000000' + p_text
-    else:
-        p_text = plaintext_bin[i * 64:i * 64 + 64]
-    p = xor(iv, p_text)
-    chiper = encrypt(p, key_bin)
-    iv = chiper
-    i+=1
-    text_length -= 8
+    # initialize initial vector
+    iv = '0000000000000000000000000000000000000000000000000000000000000000'
 
-chiper_bin = []
-chiper_text = ''
-for i in range(0, 8):
-    chiper_bin.append(int(chiper[i*8:i*8+8], 2))
-    chiper_text += chr(chiper_bin[i])
-print "\n\nResult:\n"+chiper_text
+    # initialize stream counter
+    count = 0
+
+    # initialize chiper text (the result of decryption in binary)
+    chipertext_bin = ''
+
+    # start the OFB itteration
+    while text_length > 0:
+        # check whether the stream size is 64bit or less
+        if (text_length < 8):
+            p_text = plaintext_bin[count * 64:count * 64 + 8 * text_length]
+            for i in range(0, 8 - text_length):
+                p_text = p_text + '00000000'
+        else:
+            p_text = plaintext_bin[count * 64:count * 64 + 64]
+
+        # start encryption with DES algorithm
+        encrypted_bin = encrypt(iv, key_bin)
+
+        # replace previous initial vector to the result of encryption
+        iv = encrypted_bin
+
+        # get chiper text in binary
+        chipertext_bin += xor(p_text, encrypted_bin)
+
+        #some counting operation
+        text_length -= 8
+        count += 1
+
+    # OMG wow, here the result
+    print "Result: " + bin_to_hex(chipertext_bin)
+
+
+#============MAIN PROGRAM============#
+
+#initialize choice
+choice = 0
+
+#get choice from user's input and loop it until the user inputing the right format
+while choice != '1' and choice != '2':
+    print "=============OUTPUT FEEDBACK DES============="
+    print "1. Encrypt"
+    print "2. Decrypt"
+    print "Enter your choice:"
+    choice = raw_input()
+
+#go to encrypt function if the choice is '1', and go to decrypt if the choice is '2'
+if choice == '1':
+    ofb_encrypt()
+else:
+    ofb_decrypt()
