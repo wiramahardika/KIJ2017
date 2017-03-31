@@ -4,24 +4,25 @@ Kelompok F13 :
   I Putu Eka Wira Mahardika (5114100025)
   Wida Dwitiayasa           (5114100155)
   
-PENDAHULUAN
+# PENDAHULUAN #
 
 Salah satu hal yang penting dalam komunikasi menggunakan computer untuk menjamin kerahasiaan data adalah enkripsi. Enkripsi adalah sebuah proses yang melakukan perubahan sebuah kode dari yang bisa dimengerti menjadi sebuah kode yang tidak bisa dimengerti (tidak terbaca). Enkripsi dapat diartikan sebagai kode atau chiper. Sebuah sistem pengkodean menggunakan suatu table atau kamus yang telah didefinisikan untuk mengganti kata dari informasi atau yang merupakan bagian dari informasi yang dikirim. Sebuah chiper menggunakan suatu algoritma yang dapat mengkodekan semua aliran data (stream) bit dari sebuah pesan menjadi cryptogram yang tidak dimengerti. Karena teknik chiper merupakan suaru sistem yang telah siap untuk di automasi, maka teknik ini digunakan dalam sistem keamanan komputer dan network. 
 
-DASAR TEORI
+# DASAR TEORI #
 
-DES
+## DES ##
 DES (Data Encryption Standard) adalah algoritma cipher blok yang populer karena dijadikan standard algoritme enkripsi kunci-simetri, meskipun saat ini DES telah dianggap tidak aman lagi. DES termasuk ke dalam sistem kriptografi simetri dan tergolong jenis chiperblok. DES beroperasi pada ukuran blok 64 bit. DES mengenkripsikan 64 bit plaintext menjadi 64 bit ciphertext menggunakan 56 bit kunci internal (internal key) atau subkey. Kunci internal dibangkitkan dari kunci eksternal yang panjangnya 64 bit.
 
-CBC
-Operasi CBC (Chiper Block Chaining) merupakan penerapan mekanisme umpan balik pada sebuah blok bit dimana hasil enkripsi blok sebelumnya diumpanbalikan ke dalam proses enkripsi blok current. Algoritma kriptografi klasik merupakan algoritma yang masih beroperasi pada level karakter (pada umumnya memakai set karakter ASCII sebanyak 256 jenis karakter ~ 1 byte/8 bit) dengan menggunakan beberapa metode seperti permutasi, penggeseran, dsb.
+## OFB ##
+Mode OFB hampir mirip dengan mode CFB, hanya saja input dari metode enkripsinya adalah input key dan nilai initial vector yang merupakan hasil enkripsi dari proses sebelumnya. 
 
-
-IMPLEMENTASI
+# IMPLEMENTASI #
 
 Langkah-langkah dalam implementasi algoritma DES menggunakan metode OFD adalah sebagai berikut:
 
-Mode enkripsi
+## MODE ENKRIPSI ##
+
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.37.png?raw=true)
 
 1. Meminta input plaintext
 2. Meminta input key
@@ -51,8 +52,14 @@ Mode enkripsi
         6.2.18 Nilai initial vector diganti dengan hasil dari tahap 6.2.17 
     6.3 Masing-masing hasil dari tahap 6.2 digabungkan kembali dan ubah dari binary menjadi heksadesimal
     6.4 Selesai
+
+## RUN PROGRAM ##
+
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.22.44.png?raw=true)
     
-Mode Dekripsi
+## MODE DEKRIPSI ##
+
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.44.png?raw=true)
 
 1. Meminta input chipertext berupa heksadesimal
 2. Meminta input key
@@ -83,9 +90,13 @@ Mode Dekripsi
     6.3 Masing-masing hasil dari tahap 6.2 digabungkan kembali dan ubah dari binary menjadi char
     6.4 Selesai
 
-PENJELASAN TEKNIK OPERASI
+## RUN PROGRAM ##
 
-PERMUTASI
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.23.04.png?raw=true)
+
+# PENJELASAN TEKNIK OPERASI #
+
+## PERMUTASI ##
 Teknik operasi permutasi adalah teknik merubah urutan input biner menjadi sesuai urutan tabel mutlak/statis yang ditunjuk.
 Contoh
     input biner                  1   0   0   1   1
@@ -93,7 +104,7 @@ Contoh
     urutan indeks tabel statis  [4] [0] [3] [1] [2]
     hasil permutasi              1   0   1   0   0
     
-LEFT SHIFT
+## LEFT SHIFT ##
 Teknik operasi left shift adalah teknik pergeseran urutan input biner. Besar/banyak pergeseran ditentukan oleh tabel mutlak/statis yang ditunjuk sesuai iterasinya.
 Contoh
     input biner                  1   0   0   1   1
@@ -103,7 +114,7 @@ Contoh
           iterasi ke-2           1   0   0   1   1      (bergeser 2)
           dst.
           
-XOR
+## XOR ##
 Teknik operasi XOR adalah teknik operasi yang menghasilkan angka biner 0 atau 1. Akan menghasilkan 1 ketika kedua input yang dibandingkan menunjukan angka yang berbeda, berlaku sebaliknya.
 Contoh
     input biner                  1   0   0   1   1
@@ -111,7 +122,7 @@ Contoh
     hasil XOR                    0   1   1   1   0
     
     
-S-BOX
+## S-BOX ##
 Teknik operasi S-BOX adalah teknik operasi yang mengganti nilai input biner menjadi nilai biner pada state yang ditunjuk dari tabel matrix mutlak/statis. Nilai baris yang ditunjuk adalah gabungan biner 1 bit pertama dan 1 bit terakhir input biner. Sisanya menjadi referensi nilai kolom yang akan ditunjuk.
 Contoh
     input biner                  1   0   0   1   1  1
