@@ -1,6 +1,3 @@
-![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/wida.png?raw=true)
-
-
 TUGAS 1 - IMPLEMENTASI ALGORITMA DES DENGAN MENGGUNAKAN METODE CBC
 
 Kelompok F13 :
@@ -16,42 +13,88 @@ DASAR TEORI
 DES
 DES (Data Encryption Standard) adalah algoritma cipher blok yang populer karena dijadikan standard algoritme enkripsi kunci-simetri, meskipun saat ini DES telah dianggap tidak aman lagi. DES termasuk ke dalam sistem kriptografi simetri dan tergolong jenis chiperblok. DES beroperasi pada ukuran blok 64 bit. DES mengenkripsikan 64 bit plaintext menjadi 64 bit ciphertext menggunakan 56 bit kunci internal (internal key) atau subkey. Kunci internal dibangkitkan dari kunci eksternal yang panjangnya 64 bit.
 
-CBC
-Operasi CBC (Chiper Block Chaining) merupakan penerapan mekanisme umpan balik pada sebuah blok bit dimana hasil enkripsi blok sebelumnya diumpanbalikan ke dalam proses enkripsi blok current. Algoritma kriptografi klasik merupakan algoritma yang masih beroperasi pada level karakter (pada umumnya memakai set karakter ASCII sebanyak 256 jenis karakter ~ 1 byte/8 bit) dengan menggunakan beberapa metode seperti permutasi, penggeseran, dsb.
-
+OFB
+Mode OFB hampir mirip dengan mode CFB, hanya saja input dari metode enkripsinya adalah input key dan nilai initial vector yang merupakan hasil enkripsi dari proses sebelumnya. 
 
 IMPLEMENTASI
 
-Langkah-langkah dalam implementasi algoritma DES menggunakan metode CBC adalah sebagai berikut:
+Langkah-langkah dalam implementasi algoritma DES menggunakan metode OFD adalah sebagai berikut:
+
+MODE ENKRIPSI
+
+[!alt tag](https://github.com/wiramahardika/KIJ2017/commit/be9bb69d19a087a829398638e78c434a91b54053)
+
 1. Meminta input plaintext
 2. Meminta input key
 3. Ubah input plaintext menjadi binary
 4. Ubah input key menjadi binary
 5. Inisialisasikan nilai initial vector (iv)
 6. Melakukan enkripsi menggunakan algoritma DES per block (per 8 bit)
-    6.1 Pertama-tama ambil 8 bit pertama untuk diproses
-    6.2 Lakukan teknik operasi XOR pada 8 bit binary plaintext dengan initial vectornya
-    6.3 Kemudian masuk ke dalam fungsi encrypt yang memiliki argumen berupa hasil tahap 6.2 dan binary dari input key nya (selanjutnya disebut key_bin)
-        6.3.1 Lakukan teknik operasi permutasi antara tabel ip_table dengan binary dari input plaintext nya (selanjutnya disebut plaintext_bin)
-        6.3.2 Bagi 2 string biner yang terbentuk dari tahap 6.3.1 [50:50]
-        6.3.3 Lakukan juga teknik operasi permutasi antara tabel pc_1_table dengan key_bin
-        6.3.4 Bagi 2 string biner yang terbentuk dari tahap 6.3.3 [50:50]
-        6.3.5 Lakukan teknik operasi left shift antara tabel left_shift dengan masing-masing hasil string dari tahap 6.3.4
-        6.3.6 Gabungkan kembali setiap hasil iterasi dari 6.3.5
-        6.3.7 Lakuan teknik operasi permutasi antara tabel pc_2_table dengan masing-masing hasil dari tahap 6.3.6
-        6.3.8 Lakukan teknik operasi permutasi kembali antara tabel e_table dengan masing-masing hasil pembagian kedua dari tahap 6.3.2
-        6.3.9 Lakukan teknik operasi XOR antara hasil dari 6.3.7 dengan hasil dari tahap 6.3.8
-        6.3.10 Lakukan teknik operasi s-box terhadap hasil dari 6.8.9 dengan tabel S1_table
-        6.3.11 Kemudian lakukan permutasi kembali antara tabel p_box_table dengan hasil dari tahap 6.3.10
-        6.3.12 Lakukan teknik operasi XOR antara hasil dari tahap 6.3.11 dengan masing-masing hasil pembagian pertama dari tahap 6.3.2
-        6.3.13 Ubah nilai hasil pembagian pertama pada tahap 6.3.2 menjadi hasil pembagian kedua pada tahap 6.3.2
-        6.3.14 Ubah nilai hasil pembagian kedua pada tahap 6.3.2 menjadi hasil dari tahap 6.3.12
-        6.3.15 Gabungkan kembali masing-masing hasil tahap 6.3.13 dengan masing-masing hasil tahap 6.3.14 sesuai indeksnya
-        6.3.16 Lakukan teknik operasi antara tabel ip_inverse_table dengan hasil dari tahap 6.3.15
-        6.3.17 Proses enkripsi pun sudah selesai, lakukan kembali mulai dari tahap 6.3.1 pada 8 bit binary plaintext selanjutnya
-    6.4 Masing-masing hasil dari tahap 6.3 digabungkan kembali dan ubah dari binary menjadi char kembali
-    6.5 Selesai
+    6.1 Pertama-tama ambil 8 bit pertama dari plain text untuk diproses
+    6.2 Kemudian masuk ke dalam fungsi encrypt yang memiliki argumen berupa initial vector dan binary dari input key nya (selanjutnya disebut key_bin)
+        6.2.1 Lakukan teknik operasi permutasi antara tabel ip_table dengan binary dari initial vector
+        6.2.2 Bagi 2 string biner yang terbentuk dari tahap 6.2.1 [50:50]
+        6.2.3 Lakukan juga teknik operasi permutasi antara tabel pc_1_table dengan key_bin
+        6.2.4 Bagi 2 string biner yang terbentuk dari tahap 6.2.3 [50:50]
+        6.2.5 Lakukan teknik operasi left shift antara tabel left_shift dengan masing-masing hasil string dari tahap 6.2.4
+        6.2.6 Gabungkan kembali setiap hasil iterasi dari 6.2.5
+        6.2.7 Lakuan teknik operasi permutasi antara tabel pc_2_table dengan masing-masing hasil dari tahap 6.2.6
+        6.2.8 Lakukan teknik operasi permutasi kembali antara tabel e_table dengan masing-masing hasil pembagian kedua dari tahap 6.2.2
+        6.2.9 Lakukan teknik operasi XOR antara hasil dari 6.2.7 dengan hasil dari tahap 6.2.8
+        6.2.10 Lakukan teknik operasi s-box terhadap hasil dari 6.2.9 dengan tabel S1_table
+        6.2.11 Kemudian lakukan permutasi kembali antara tabel p_box_table dengan hasil dari tahap 6.2.10
+        6.2.12 Lakukan teknik operasi XOR antara hasil dari tahap 6.2.11 dengan masing-masing hasil pembagian pertama dari tahap 6.2.2
+        6.2.13 Ubah nilai hasil pembagian pertama pada tahap 6.2.2 menjadi hasil pembagian kedua pada tahap 6.2.2
+        6.2.14 Ubah nilai hasil pembagian kedua pada tahap 6.2.2 menjadi hasil dari tahap 6.2.12
+        6.2.15 Gabungkan kembali masing-masing hasil tahap 6.2.13 dengan masing-masing hasil tahap 6.2.14 sesuai indeksnya
+        6.2.16 Lakukan teknik operasi antara tabel ip_inverse_table dengan hasil dari tahap 6.2.15
+        6.2.17 Proses enkripsi pun sudah selesai, lakukan kembali mulai dari tahap 6.2.1 pada 8 bit binary plaintext selanjutnya
+        6.2.18 Nilai initial vector diganti dengan hasil dari tahap 6.2.17 
+    6.3 Masing-masing hasil dari tahap 6.2 digabungkan kembali dan ubah dari binary menjadi heksadesimal
+    6.4 Selesai
+
+RUN PROGRAM
+
+[!alt tag](https://github.com/wiramahardika/KIJ2017/commit/be9bb69d19a087a829398638e78c434a91b54053)
     
+MODE DEKRIPSI
+
+[!alt tag](https://github.com/wiramahardika/KIJ2017/commit/be9bb69d19a087a829398638e78c434a91b54053)
+
+1. Meminta input chipertext berupa heksadesimal
+2. Meminta input key
+3. Ubah input chipertext menjadi binary
+4. Ubah input key menjadi binary
+5. Initialisasikan nilai vector (iv)
+6. Melakukan dekripsi menggunakan algoritma DES per block (per 8 bit)
+    6.1 Pertama-tama ambil 8 bit pertama dari chipertext untuk diproses
+    6.2 Kemudian masuk ke dalam fungsi encrypt yang memiliki argumen berupa initial vector dan binary dari input key nya (selanjutnya disebut key_bin)
+        6.2.1 Lakukan teknik operasi permutasi antara tabel ip_table dengan binary dari initial vector
+        6.2.2 Bagi 2 string biner yang terbentuk dari tahap 6.2.1 [50:50]
+        6.2.3 Lakukan juga teknik operasi permutasi antara tabel pc_1_table dengan key_bin
+        6.2.4 Bagi 2 string biner yang terbentuk dari tahap 6.2.3 [50:50]
+        6.2.5 Lakukan teknik operasi left shift antara tabel left_shift dengan masing-masing hasil string dari tahap 6.2.4
+        6.2.6 Gabungkan kembali setiap hasil iterasi dari 6.2.5
+        6.2.7 Lakuan teknik operasi permutasi antara tabel pc_2_table dengan masing-masing hasil dari tahap 6.2.6
+        6.2.8 Lakukan teknik operasi permutasi kembali antara tabel e_table dengan masing-masing hasil pembagian kedua dari tahap 6.2.2
+        6.2.9 Lakukan teknik operasi XOR antara hasil dari 6.2.7 dengan hasil dari tahap 6.2.8
+        6.2.10 Lakukan teknik operasi s-box terhadap hasil dari 6.2.9 dengan tabel S1_table
+        6.2.11 Kemudian lakukan permutasi kembali antara tabel p_box_table dengan hasil dari tahap 6.2.10
+        6.2.12 Lakukan teknik operasi XOR antara hasil dari tahap 6.2.11 dengan masing-masing hasil pembagian pertama dari tahap 6.2.2
+        6.2.13 Ubah nilai hasil pembagian pertama pada tahap 6.2.2 menjadi hasil pembagian kedua pada tahap 6.2.2
+        6.2.14 Ubah nilai hasil pembagian kedua pada tahap 6.2.2 menjadi hasil dari tahap 6.2.12
+        6.2.15 Gabungkan kembali masing-masing hasil tahap 6.2.13 dengan masing-masing hasil tahap 6.2.14 sesuai indeksnya
+        6.2.16 Lakukan teknik operasi antara tabel ip_inverse_table dengan hasil dari tahap 6.2.15
+        6.2.17 Proses enkripsi pun sudah selesai, lakukan kembali mulai dari tahap 6.2.1 pada 8 bit binary chipertext selanjutnya
+        6.2.18 Nilai initial vector diganti dengan hasil dari tahap 6.2.17 
+    6.3 Masing-masing hasil dari tahap 6.2 digabungkan kembali dan ubah dari binary menjadi char
+    6.4 Selesai
+
+RUN PROGRAM
+
+[!alt tag](https://github.com/wiramahardika/KIJ2017/commit/be9bb69d19a087a829398638e78c434a91b54053)
+
+
 PENJELASAN TEKNIK OPERASI
 
 PERMUTASI
