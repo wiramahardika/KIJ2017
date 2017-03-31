@@ -22,7 +22,7 @@ Langkah-langkah dalam implementasi algoritma DES menggunakan metode OFD adalah s
 
 ## MODE ENKRIPSI ##
 
-[!alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.37.png?raw=true)
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.37.png?raw=true)
 
 1. Meminta input plaintext
 2. Meminta input key
@@ -55,11 +55,11 @@ Langkah-langkah dalam implementasi algoritma DES menggunakan metode OFD adalah s
 
 ## RUN PROGRAM ##
 
-[!alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.22.44.png?raw=true)
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.22.44.png?raw=true)
     
 ## MODE DEKRIPSI ##
 
-[!alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.44.png?raw=true)
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.16.44.png?raw=true)
 
 1. Meminta input chipertext berupa heksadesimal
 2. Meminta input key
@@ -92,7 +92,7 @@ Langkah-langkah dalam implementasi algoritma DES menggunakan metode OFD adalah s
 
 ## RUN PROGRAM ##
 
-[!alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.23.04.png?raw=true)
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/img/Screen%20Shot%202017-03-31%20at%2013.23.04.png?raw=true)
 
 # PENJELASAN TEKNIK OPERASI #
 
