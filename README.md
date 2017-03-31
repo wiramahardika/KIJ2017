@@ -1,3 +1,6 @@
+![alt tag](https://github.com/wiramahardika/KIJ2017/blob/master/wida.png?raw=true)
+
+
 TUGAS 1 - IMPLEMENTASI ALGORITMA DES DENGAN MENGGUNAKAN METODE CBC
 
 Kelompok F13 :
