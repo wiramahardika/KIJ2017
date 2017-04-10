@@ -23,11 +23,3 @@ while True:
     #print encrypted_msg
 
 c.close()
-
-#socket = pintu akses data
-#kunci masuk socket host dan port nya server
-#isinya c dan addr sama
-
-
-#recv dan send = tujuan
-#accept dan listen = diri sendiri
