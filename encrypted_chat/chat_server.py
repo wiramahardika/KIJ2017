@@ -3,10 +3,12 @@ from des_encrypt import *
 
 s = socket.socket()
 host = socket.gethostbyname(socket.gethostname())
-port = 14021
+
+print '* Alamat IP Server:', host
+print '* Masukkan nomor port:\n>',
+port = int(raw_input())
 s.bind((host, port))
 
-print '* Alamat IP Server:', socket.gethostbyname(socket.gethostname())
 print '* Menunggu client terhubung...'
 s.listen(5)
 c, addr = s.accept()

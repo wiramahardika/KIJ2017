@@ -2,20 +2,20 @@ from des_encrypt import *
 import socket
 
 s = socket.socket()
-port = 14091
 
 print '* Masukkan alamat IP server'
 print '>',
 host = raw_input()
+print '* Masukkan port server'
+print '>',
+port = int(raw_input())
 
 print '\n* Menguhubngkan ke server...'
 s.connect((host, port))
 print '* Anda sudah terhubung!\n\n'
 
 while True:
-    a = s.recv(1024)
-    print a
-    reply_msg = ofb_decrypt(a)
+    reply_msg = ofb_decrypt(s.recv(1024))
     print 'Sender: ', reply_msg
     print '> ',
     msg = raw_input()
