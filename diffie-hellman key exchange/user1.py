@@ -13,8 +13,8 @@ print '>',
 port = int(raw_input())
 s1.bind((host, port))
 
-g = generateLargePrime()
-n = generateSmallPrime()
+g = generateSmallPrime()
+n = generateLargePrime()
 print '\n* Nilai g = '+str(g)+', dan nilai n = '+str(n)
 
 print '* Alamat IP anda:', host
@@ -45,7 +45,9 @@ public_key_user2 = int(s2.recv(1024))
 print '* Public Key user2 adalah '+str(public_key_user2)
 
 print '* Menghitung private key...'
+
 private_key = count_private_key(public_key_user2, random_prime, n)
+
 print '* Private Key = '+str(private_key)
 key = set_key(str(private_key))
 print '* Key = '+key
