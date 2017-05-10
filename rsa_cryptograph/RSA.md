@@ -29,29 +29,29 @@ Apabila terdapat faktorisasi metode yang baru dan cepat telah dikembangkan, maka
 
 # Implementasi #
 
-1. Pertama-tama pilih 2 bilangan acak prima p dan q (p != q), dimana bilangan tersebut dipilih dalam range 255 sampai 1000 agar dapat mewakili kode ASCII. Kedua bilangan ini bersifat rahasia.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/1.png)
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/2.png)
+1. Pertama-tama pilih 2 bilangan acak prima p dan q (p != q), dimana bilangan tersebut dipilih dalam range 255 sampai 1000 agar dapat mewakili kode ASCII. Kedua bilangan ini bersifat rahasia.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/1.png)<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/2.png)<br />
 
-2. Hitung nilai modulus dengan rumus n = p * q. Nilai n bersifat publik atau tidak rahasia.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/3.png)
+2. Hitung nilai modulus dengan rumus n = p * q. Nilai n bersifat publik atau tidak rahasia.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/3.png)<br />
 
-3. Hitung nilai m dengan rumus m = (p-1)*(q-1). Nilai m bersifat rahasia.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/4.png)
+3. Hitung nilai m dengan rumus m = (p-1)*(q-1). Nilai m bersifat rahasia.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/4.png)<br />
 
-4. Cari nilai e atau eksponen publik dimana nilai ini merupakan bilangan relative prima dari m. Nilai e bersifat publik atau tidak rahasia.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/5.png)
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/6.png)
+4. Cari nilai e atau eksponen publik dimana nilai ini merupakan bilangan relative prima dari m. Nilai e bersifat publik atau tidak rahasia.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/5.png)<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/6.png)<br />
 
-5. Cari nilai d atau eksponen pribadi dengan rumus ed ≡ 1 mod m atau d = e-1 mod m. Nilai d bersifat rahasia.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/7.png)
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/8.png)
+5. Cari nilai d atau eksponen pribadi dengan rumus ed ≡ 1 mod m atau d = e-1 mod m. Nilai d bersifat rahasia.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/7.png)<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/8.png)<br />
 
-6. Kemudian didapatkan 2 buah kunci publik [e dan n] dan 2 buah kunci private [d dan n]. Kunci publik ini yang akan dikirimkan kepada user lain dimana bukan si pembuat kunci, sedangkan kunci private tetap berada di komputer pembuat kunci.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/9.png)
+6. Kemudian didapatkan 2 buah kunci publik [e dan n] dan 2 buah kunci private [d dan n]. Kunci publik ini yang akan dikirimkan kepada user lain dimana bukan si pembuat kunci, sedangkan kunci private tetap berada di komputer pembuat kunci.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/9.png)<br />
 
-7. Selanjutnya untuk melakukan enkripsi dekripsi pesan dibutuhkan kunci tambahan menggunakan algoritma DES. Dimana kunci ini bersifat simetris dan disepakati oleh kedua belah pihak. Dengan demikian maka hanya 1 user yang akan membuat kunci kemudian kunci tersebut dikirimkan dalam bentuk hasil enkrispi, sedangkan user yang menerima hasil enkripsi akan melakukan dekripsi kunci sehingga didapatkan satu buah kunci yang sama.
-![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/11.png)
+7. Selanjutnya untuk melakukan enkripsi dekripsi pesan dibutuhkan kunci tambahan menggunakan algoritma DES. Dimana kunci ini bersifat simetris dan disepakati oleh kedua belah pihak. Dengan demikian maka hanya 1 user yang akan membuat kunci kemudian kunci tersebut dikirimkan dalam bentuk hasil enkrispi, sedangkan user yang menerima hasil enkripsi akan melakukan dekripsi kunci sehingga didapatkan satu buah kunci yang sama.<br />
+![alt tag](https://raw.githubusercontent.com/wiramahardika/KIJ2017/b04e0e816bd66f9c0d30b13cd1581b8934c15203/rsa_cryptograph/img/11.png)<br />
 
 8. Langkah terakhir akan dilakukan sebuah pengiriman dan penerimaan pesan menggunakan algoritma DES-OFB seperti yang telah dijelaskan pada dokumentasi sebelumnya (https://github.com/wiramahardika/KIJ2017/blob/master/encrypted_chat/encrypted_chat.md) sehingga pesan tidak dapat terbaca melalui beberapa tools Network Analyzer.
 
